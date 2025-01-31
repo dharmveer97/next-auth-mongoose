@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```markdown
+# NextAuth v5 + Next.js 15 + React 19 + Mongoose Starter 🔥
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15.1.6-000000?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.13.0-47A248?logo=mongodb)](https://www.mongodb.com/)
 
-First, run the development server:
+A production-ready authentication template with NextAuth v5, MongoDB/Mongoose, and TypeScript. Supports credentials + OAuth providers.
+
+## 🚀 Quick Start
+
+1. Clone repo:
+```bash
+git clone https://github.com/dharmveer97/next-auth-mongoose.git
+cd next-auth-mongoose
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+or
+bun install
+```
+
+3. Create `.env.local` file:
+
+```env
+MONGODB_URI="your_mongodb_connection_string"
+NEXTAUTH_SECRET="generated_secret_here"
+NEXTAUTH_URL="http://localhost:3000"
+GOOGLE_CLIENT_ID="your_google_oauth_id"
+GOOGLE_CLIENT_SECRET="your_google_oauth_secret"
+```
+
+4. Generate NEXTAUTH_SECRET:
+
+```bash
+openssl rand -base64 32
+# or
+npx auth secret
+```
+
+5. Start development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ or
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Key Technologies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Authentication**: NextAuth v5
+- **Database**: MongoDB + Mongoose ODM
+- **Frontend**: React 19 + TypeScript
+- **Forms**: Formik + Yup validation
+- **Styling**: Tailwind CSS
+- **Security**: BcryptJS password hashing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Project Structure
 
-## Learn More
+```
+├── app/
+│   ├── api/auth/[...nextauth]/route.ts
+│   └── (auth)/
+├── components/
+│   └── Auth/
+├── models/
+│   └── User.ts
+├── lib/
+│   └── mongoose.ts
+└── types/
+    └── next-auth.d.ts
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ MongoDB Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create free cluster at [MongoDB Atlas](https://www.mongodb.com/atlas/database)
+2. Get connection string:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/dbname?retryWrites=true&w=majority"
+```
 
-## Deploy on Vercel
+## 🔐 Google OAuth
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create OAuth 2.0 credentials
+3. Add authorized redirect URI:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+http://localhost:3000/api/auth/callback/google
+```
+
+## 🧩 TypeScript Models
+
+`models/User.ts`:
+
+```typescript
+import { Schema, model } from 'mongoose';
+
+const UserSchema = new Schema({
+  name: { type: String },
+  email: { type: String, unique: true },
+  password: { type: String, select: false },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  emailVerified: { type: Date, default: null },
+}, { timestamps: true });
+
+export const User = model('User', UserSchema);
+```
+
+## 🚨 Security Features
+
+- Password hashing with bcryptjs
+- CSRF protection
+- HTTPS-only cookies
+- Secure session management
+- Environment variable validation
+- Type-safe API routes
+
+## 📦 Deployment
+
+**Vercel:**
+
+1. Set environment variables in project settings
+2. Add build command: `npm run build`
+3. Enable Serverless Functions
+
+**Netlify:**
+
+```yaml
+# netlify.toml
+[build]
+  command = "npm run build"
+  publish = ".next"
+```
+
+## 💡 Usage Tips
+
+- Customize sign-in page in `app/(auth)/login/page.tsx`
+- Add more OAuth providers in `[...nextauth]/route.ts`
+- Extend User model with additional fields
+- Use `getServerSession()` for server-side auth
+- Implement rate limiting for auth endpoints
+
+---
+
+**Keywords**: Next.js Authentication, MongoDB Auth, NextAuth v5 Tutorial, React 19 Starter, TypeScript Auth Template, Mongoose User Model, Google OAuth Integration, Secure Login System
+
+```
