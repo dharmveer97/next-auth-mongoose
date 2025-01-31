@@ -1,3 +1,5 @@
+Here's an improved version of your README file for better compatibility and presentation on GitHub:
+
 ```markdown
 # NextAuth v5 + Next.js 15 + React 19 + Mongoose Starter 🔥
 
@@ -6,25 +8,26 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-6.13.0-47A248?logo=mongodb)](https://www.mongodb.com/)
 
-A production-ready authentication template with NextAuth v5, MongoDB/Mongoose, and TypeScript. Supports credentials + OAuth providers.
+A production-ready authentication template using NextAuth v5, MongoDB/Mongoose, and TypeScript. It supports both credentials and OAuth providers.
 
 ## 🚀 Quick Start
 
-1. Clone repo:
+### 1. Clone the repository:
+
 ```bash
 git clone https://github.com/dharmveer97/next-auth-mongoose.git
 cd next-auth-mongoose
 ```
 
-2. Install dependencies:
+### 2. Install dependencies
 
 ```bash
 npm install
-or
+# or
 bun install
 ```
 
-3. Create `.env.local` file:
+### 3. Create a `.env.local` file
 
 ```env
 MONGODB_URI="your_mongodb_connection_string"
@@ -34,7 +37,7 @@ GOOGLE_CLIENT_ID="your_google_oauth_id"
 GOOGLE_CLIENT_SECRET="your_google_oauth_secret"
 ```
 
-4. Generate NEXTAUTH_SECRET:
+### 4. Generate `NEXTAUTH_SECRET`
 
 ```bash
 openssl rand -base64 32
@@ -42,11 +45,11 @@ openssl rand -base64 32
 npx auth secret
 ```
 
-5. Start development server:
+### 5. Start the development server
 
 ```bash
 npm run dev
- or
+# or
 bun run dev
 ```
 
@@ -77,18 +80,18 @@ bun run dev
 
 ## 🛠️ MongoDB Setup
 
-1. Create free cluster at [MongoDB Atlas](https://www.mongodb.com/atlas/database)
-2. Get connection string:
+1. Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/atlas/database).
+2. Get your connection string:
 
 ```env
 MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/dbname?retryWrites=true&w=majority"
 ```
 
-## 🔐 Google OAuth
+## 🔐 Google OAuth Setup
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create OAuth 2.0 credentials
-3. Add authorized redirect URI:
+1. Go to [Google Cloud Console](https://console.cloud.google.com/).
+2. Create OAuth 2.0 credentials.
+3. Add the authorized redirect URI:
 
 ```
 http://localhost:3000/api/auth/callback/google
@@ -96,7 +99,7 @@ http://localhost:3000/api/auth/callback/google
 
 ## 🧩 TypeScript Models
 
-`models/User.ts`:
+### `models/User.ts`
 
 ```typescript
 import { Schema, model } from 'mongoose';
@@ -123,13 +126,13 @@ export const User = model('User', UserSchema);
 
 ## 📦 Deployment
 
-**Vercel:**
+### Vercel
 
-1. Set environment variables in project settings
-2. Add build command: `npm run build`
-3. Enable Serverless Functions
+1. Set environment variables in project settings.
+2. Add the build command: `npm run build`.
+3. Enable Serverless Functions.
 
-**Netlify:**
+### Netlify
 
 ```yaml
 # netlify.toml
@@ -140,11 +143,11 @@ export const User = model('User', UserSchema);
 
 ## 💡 Usage Tips
 
-- Customize sign-in page in `app/(auth)/login/page.tsx`
-- Add more OAuth providers in `[...nextauth]/route.ts`
-- Extend User model with additional fields
-- Use `getServerSession()` for server-side auth
-- Implement rate limiting for auth endpoints
+- Customize the sign-in page in `app/(auth)/login/page.tsx`.
+- Add more OAuth providers in `[...nextauth]/route.ts`.
+- Extend the User model with additional fields.
+- Use `getServerSession()` for server-side authentication.
+- Implement rate limiting for authentication endpoints.
 
 ---
 
