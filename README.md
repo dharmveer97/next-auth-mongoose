@@ -10,7 +10,7 @@ A production-ready authentication template using NextAuth v5, MongoDB/Mongoose, 
 ### 1. Clone the repository:
 
 ```bash
-git clone https://github.com/dharmveer97/next-auth-mongoose.git
+git clone git@github.com:dharmveer97/next-auth-mongoose.git
 cd next-auth-mongoose
 ```
 
