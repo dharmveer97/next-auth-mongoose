@@ -2,10 +2,6 @@
 ```markdown
 # NextAuth v5 + Next.js 15 + React 19 + Mongoose Starter 🔥
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.1.6-000000?logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-6.13.0-47A248?logo=mongodb)](https://www.mongodb.com/)
 
 A production-ready authentication template using NextAuth v5, MongoDB/Mongoose, and TypeScript. It supports both credentials and OAuth providers.
 
