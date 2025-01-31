@@ -1,4 +1,3 @@
-Here's an improved version of your README file for better compatibility and presentation on GitHub:
 
 ```markdown
 # NextAuth v5 + Next.js 15 + React 19 + Mongoose Starter 🔥
