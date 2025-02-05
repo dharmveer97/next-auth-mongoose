@@ -13,6 +13,7 @@
     "@heroui/react": "^2.6.14",
     "bcryptjs": "^2.4.3",
     "formik": "^2.4.6",
+    "lodash": "^4.17.21",
     "mongodb": "^6.13.0",
     "mongoose": "^8.9.6",
     "next": "15.1.6",
@@ -24,7 +25,6 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
     "@next/eslint-plugin-next": "^15.1.6",
     "@types/bcryptjs": "^2.4.3",
     "@types/bun": "latest",
@@ -36,10 +36,8 @@
     "autoprefixer": "^10.4.15",
     "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
-    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.14.0",
     "postcss": "^8.4.29",
     "prettier": "^3.4.2",

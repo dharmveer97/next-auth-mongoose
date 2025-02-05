@@ -4,7 +4,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import clientPromise from "./mongodb";
+
 import User from "../../models/User";
+import { isEmpty } from "lodash";
 import { connectToDatabase } from "./mongoose";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -30,6 +32,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (!user || !user.password) {
           return null;
+        }
+
+        if (isEmpty(user)) {
+          console.log("first login failed");
         }
 
         const pas = credentials.password as string;

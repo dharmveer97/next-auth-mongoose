@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const AddressSchema = new mongoose.Schema({
   addressLine1: { type: String, trim: true },
@@ -10,56 +10,76 @@ const AddressSchema = new mongoose.Schema({
   country: { type: String, trim: true },
   telephone: { type: String },
   telephone2: { type: String },
-})
+});
 
 const ProfileSchema = new mongoose.Schema({
   fullName: { type: String, trim: true },
   image: { type: String },
   addresses: { type: [AddressSchema], default: [] },
-})
+});
 
-const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
+const UserSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      minlength: 4,
+      trim: true,
+    },
+    profile: ProfileSchema,
+    googleId: { type: String, sparse: true },
+    isEmailVerified: { type: Boolean, default: false },
+    roles: {
+      type: [String],
+      default: ["customer"],
+      enum: [
+        "superAdmin",
+        "customer",
+        "admin",
+        "salesAssociate",
+        "warehouseWorker",
+        "deliveryDriver",
+        "affiliate",
+      ],
+    },
+    status: {
+      type: String,
+      default: "active",
+      enum: [
+        "active",
+        "notActive",
+        "pending",
+        "approved",
+        "rejected",
+        "archived",
+      ],
+    },
   },
-  password: {
-    type: String,
-    minlength: 4,
-    trim: true,
+  {
+    timestamps: true,
   },
-  profile: ProfileSchema,
-  googleId: { type: String, sparse: true },
-  isEmailVerified: { type: Boolean, default: false },
-  roles: {
-    type: [String],
-    default: ['customer'],
-    enum: ['superAdmin', 'customer', 'admin', 'salesAssociate', 'warehouseWorker', 'deliveryDriver', 'affiliate'],
-  },
-  status: {
-    type: String,
-    default: 'active',
-    enum: ['active', 'notActive', 'pending', 'approved', 'rejected', 'archived'],
-  },
-}, {
-  timestamps: true,
-})
+);
 
-UserSchema.pre('save', async function(next) {
-  if (this.isModified('password') || this.isNew) {
+UserSchema.pre("save", async function (next) {
+  if (this.isModified("password") || this.isNew) {
     if (this.password) {
-      const salt = await bcrypt.genSalt(10)
-      this.password = await bcrypt.hash(this.password, salt)
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
     }
   }
-  next()
-})
+  next();
+});
 
-UserSchema.methods.comparePassword = async function(candidatePassword: string) {
-  return bcrypt.compare(candidatePassword, this.password)
-}
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string,
+) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
-export default mongoose.models.User || mongoose.model('User', UserSchema)
+export default mongoose.models.User || mongoose.model("User", UserSchema);

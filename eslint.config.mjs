@@ -3,10 +3,11 @@ import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import prettier from "eslint-plugin-prettier";
 import typescriptParser from "@typescript-eslint/parser";
 import globals from "globals";
+import nextEslintPlugin from "@next/eslint-plugin-next";
 
 export default [
   {
-    files: ["**/*.{js,mjs,cjs,ts,tsx,mjs,css}"],
+    files: ["**/*.{js,mjs,cjs,ts,tsx,mjs}"],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -19,6 +20,7 @@ export default [
     plugins: {
       react,
       prettier,
+      nextEslintPlugin,
       "@typescript-eslint": typescriptEslint,
     },
 
