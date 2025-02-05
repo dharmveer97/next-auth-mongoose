@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react';
+import { useSession } from "next-auth/react";
 
 export const useUserSession = () => {
   const session = useSession();
@@ -6,8 +6,8 @@ export const useUserSession = () => {
   const user = data?.user || null;
 
   // Loading state when session is being fetched
-  const isLoading = status === 'loading';
-  const isLoggedIn = status === 'authenticated';
+  const isLoading = status === "loading";
+  const isLoggedIn = status === "authenticated";
 
   return { user, isLoggedIn, isLoading, session, update };
 };

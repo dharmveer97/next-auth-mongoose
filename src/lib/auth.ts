@@ -1,18 +1,13 @@
-import NextAuth from "next-auth"
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import GoogleProvider from "next-auth/providers/google"
-import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from "bcryptjs"
-import clientPromise from "./mongodb"
-import User from "../../models/User"
-import { connectToDatabase } from "./mongoose"
+import NextAuth from "next-auth";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import clientPromise from "./mongodb";
+import User from "../../models/User";
+import { connectToDatabase } from "./mongoose";
 
-export const {
-  handlers,
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -25,24 +20,24 @@ export const {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials ) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null
+          return null;
         }
 
-        await connectToDatabase()
-        const user = await User.findOne({ email: credentials.email })
+        await connectToDatabase();
+        const user = await User.findOne({ email: credentials.email });
 
         if (!user || !user.password) {
-          return null
+          return null;
         }
 
-        const pas = credentials.password as string
+        const pas = credentials.password as string;
 
         const isPasswordValid = await bcrypt.compare(pas, user.password);
 
         if (!isPasswordValid) {
-          return null
+          return null;
         }
 
         return {
@@ -51,28 +46,28 @@ export const {
           name: user.profile?.fullName,
           image: user.profile?.image,
           roles: user.roles,
-        }
+        };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id
-        token.email = user.email
-        token.name = user.name
-        token.picture = user.image
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
       }
-      return token
+      return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string
-        session.user.email = token.email as string
-        session.user.name = token.name as string
-        session.user.image = token.picture as string
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.name = token.name as string;
+        session.user.image = token.picture as string;
       }
-      return session
+      return session;
     },
   },
   pages: {
@@ -82,5 +77,4 @@ export const {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-})
-
+});

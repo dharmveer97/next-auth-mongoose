@@ -3,7 +3,9 @@ import mongoose, { ConnectOptions } from "mongoose";
 const MONGODB_URI: string | undefined = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  console.warn("MONGODB_URI environment variable is not defined. Database connection may fail.");
+  console.warn(
+    "MONGODB_URI environment variable is not defined. Database connection may fail.",
+  );
 }
 
 interface Cached {
@@ -17,7 +19,10 @@ declare global {
 
 const globalCache = global as typeof global & { mongooseCache?: Cached };
 
-globalCache.mongooseCache = globalCache.mongooseCache || { conn: null, promise: null };
+globalCache.mongooseCache = globalCache.mongooseCache || {
+  conn: null,
+  promise: null,
+};
 const cached = globalCache.mongooseCache;
 
 export async function connectToDatabase(): Promise<mongoose.Mongoose | null> {
