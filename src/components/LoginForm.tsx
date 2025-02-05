@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { withFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Button, Input as TextInput } from '@heroui/react';
-import { FC } from 'react';
+import { withFormik, FormikProps } from "formik";
+import * as Yup from "yup";
+import { Button, Input as TextInput } from "@heroui/react";
+import { FC } from "react";
 
 interface FormValues {
   email: string;
@@ -47,7 +47,9 @@ const LoginForm: FC<FormikProps<FormValues>> = ({
         onBlur={handleBlur}
         placeholder="••••••••"
         required
-        errorMessage={touched.password && errors.password ? errors.password : undefined}
+        errorMessage={
+          touched.password && errors.password ? errors.password : undefined
+        }
         autoComplete="current-password"
       />
     </div>
@@ -67,16 +69,16 @@ const LoginForm: FC<FormikProps<FormValues>> = ({
 
 export default withFormik<LoginFormProps, FormValues>({
   mapPropsToValues: () => ({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   }),
   validationSchema: Yup.object().shape({
     email: Yup.string()
-      .email('Please enter a valid email address')
-      .required('Email is required'),
+      .email("Please enter a valid email address")
+      .required("Email is required"),
     password: Yup.string()
-      .required('Password is required')
-      .min(4, 'Password must be at least 4 characters'),
+      .required("Password is required")
+      .min(4, "Password must be at least 4 characters"),
   }),
   handleSubmit: async (values, { setSubmitting, props }) => {
     try {
@@ -85,5 +87,5 @@ export default withFormik<LoginFormProps, FormValues>({
       setSubmitting(false);
     }
   },
-  displayName: 'LoginForm',
+  displayName: "LoginForm",
 })(LoginForm);
